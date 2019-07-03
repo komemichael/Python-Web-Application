@@ -1,0 +1,81 @@
+{% extends 'template.html' %}
+
+{%  block content_body %}
+	<h1>Welcome {{name}}</h1>
+	<p><a href="/logout" class="w3-button">Log Out {{name}}</a></p>
+
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		<li><a data-toggle="tab" href="#menu1">Chores</a></li>
+		<li><a data-toggle="tab" href="#bills">Bills</a></li>
+	</ul>
+
+
+
+	<div class="tab-content">
+		<div id="home" class="tab-pane fade in active">
+			<h3>HOME</h3>
+			<p>Some content.</p>
+		</div>
+
+		<div id="menu1" class="tab-pane fade">
+			<h3>Menu 1</h3>
+			<p>Some content in menu 1.</p>
+		</div>
+
+		<div id="bills" class="tab-pane fade">
+			<h3>Bills</h3>
+			<p>Some content in menu 2.</p>
+			<div class="w3-bar w3-black">
+				<button class="w3-bar-item w3-button" onclick="openCity('London')">London</button>
+				<button class="w3-bar-item w3-button" onclick="openCity('Paris')">Paris</button>
+			</div>
+
+			<div id="London" class="w3-container w3-display-container city">
+				<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-large w3-display-topright">&times;</span>
+				<h2>London</h2>
+				<p>London is the capital city of England.</p>
+			</div>
+
+			<div id="Paris" class="w3-container w3-display-container city" style="display:none">
+				<span onclick="this.parentElement.style.display='none'"
+				class="w3-button w3-large w3-display-topright">&times;</span>
+				<h2>Utility Bills</h2>
+				<!-- <p>
+					<ul id="navigation">
+				    {% for item in navigation %}
+				        <li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+				    {% endfor %}
+				    </ul>	
+				</p>  -->
+				<table border = 1>
+					{% set tenants = get_tenants_func() %}
+					{% for key, value in tenants.items() %}
+
+					<tr>
+					   <th> {{ key }} </th>
+					   <td> {{ value }} </td>
+					</tr>
+
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function openCity(cityName)
+		{
+			var i;
+			var x = document.getElementsByClassName("city");
+			for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+			}
+			document.getElementById(cityName).style.display = "block";  
+		}
+	</script>
+	
+
+{% endblock %}
